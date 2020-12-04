@@ -3,8 +3,10 @@ require_relative '../config/environment.rb'
 
 class UserInterface
 
-    POP_SECTIONS =
-    SECTIONS = ['us', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 'movies', 'nyregion', 'obituaries', 'realestate', 'science', 'sports', 'sundayreview', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
+    attr_accessor :section
+
+ 
+    SECTIONS = ['U.S.', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 'movies', 'NY Region', 'obituaries', 'Real Estate', 'science', 'sports', 'Sunday Review', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
 
     def initialize
     end
@@ -15,11 +17,11 @@ class UserInterface
         morning_cutoff = Time.new(*today_date, 12, 0, 0)
         evening_cutoff = Time.new(*today_date, 18, 0, 0)
         if t < morning_cutoff
-            print "Good morning."
+            print "Good morning. "
         elsif t > evening_cutoff
-            print "Good evening."
+            print "Good evening. "
         else
-            print "Good afternoon."
+            print "Good afternoon. "
         end
         puts "Let's get started with today's headlines.\n\n"
     end
@@ -27,13 +29,12 @@ class UserInterface
     def display_section_choices
         puts "Which section would you like to view? (Input number of your choice)\n\n"
         puts "Popular Sections:\n\n\n"
-        puts "1. U.S."
-        i = 2
-        SECTIONS[1..3].each do |sec|
+        i = 1
+        SECTIONS[0..3].each do |sec|
             puts "#{i}. #{sec.capitalize}"
             i += 1
         end
-        puts "Other Sections:\n\n\n"
+        puts "\n\nOther Sections:\n"
         j = 5
         SECTIONS[4..SECTIONS.length - 1].each do |sec|
             puts "#{j}. #{sec.capitalize}"
@@ -43,8 +44,34 @@ class UserInterface
 
     def make_section_choice
         self.display_section_choices
-        []
+        input = gets.to_i
+        self.section = SECTIONS[input - 1]
+        self.section_corrector
+    end
+
+    def section_corrector
+        case @section
+        when "U.s."
+            self.section = 'us'
+        when "NY Region"
+            self.section = 'nyregion'
+        when "Real Estate"
+            self.section = 'realestate'
+        when "Sunday Review"
+            self.section = 'sundayreview'
+        end
+    end
+
+    def user_experience
+        self.greeting
+        self.make_section_choice
+    end
+
+    def headlines
+        puts "Here are today's headlines in #{self.section.capitalize}"
+    end
 
 
 
 end
+

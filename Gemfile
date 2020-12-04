@@ -11,6 +11,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'open-uri'
 gem 'json'
 gem 'table_print'
+gem 'launchy'
 
 
 

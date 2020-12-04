@@ -7,7 +7,6 @@ require 'net/http'
 require 'json'
 require 'open-uri'
 require 'pry'
-require 'table_print'
 require 'time'
 require 'launchy'
 

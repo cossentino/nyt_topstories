@@ -2,20 +2,8 @@ require_relative '../config/environment.rb'
 
 
 
-class Hello
-
-    HELLO = [5, 6]
 
 
-    def hi
-        HELLO.each do |num|
-            puts num.to_s
-        end
-    end
+x, y = 5,6
 
-end
-
-
-yo = Hello.new
-
-yo.hi
+puts x, y

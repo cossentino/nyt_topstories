@@ -6,7 +6,10 @@ class UserInterface
     attr_accessor :section, :filter, :range_min, :range_max, :morn_end, :aft_end, :t
 
  
-    SECTIONS = ['u.s.', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 'movies', 'NY Region', 'obituaries', 'Real Estate', 'science', 'sports', 'Sunday Review', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
+    SECTIONS = ['u.s.', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 
+    'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 
+    'movies', 'NY Region', 'obituaries', 'Real Estate', 'science', 'sports', 
+    'Sunday Review', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
         
     def initialize
         @range_min, @range_max = 0, 9
@@ -94,6 +97,7 @@ class UserInterface
         elsif choice.to_i != 0
             self.choose_article(choice)
         elsif choice.downcase == 'b'
+            @range_min, @range_max = 0, 9
             self.display_section_choices
         else
             self.invalid_choice('display_headlines')

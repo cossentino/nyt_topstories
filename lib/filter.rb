@@ -3,7 +3,7 @@ require_relative '../config/environment.rb'
 
 class Filter
 
-    attr_accessor :data, :interface, :article, :article_index
+    attr_accessor :data, :interface, :article, :index
 
     def initialize(data)
         @data = data
@@ -24,7 +24,7 @@ class Filter
     end
 
     def article
-        self.data['results'][self.interface.article_index]
+        self.data['results'][self.index]
     end
 
     def author
@@ -32,7 +32,7 @@ class Filter
     end
 
     def clear_information
-        self.article_index, self.article = nil, nil
+        self.index, self.article = nil, nil
     end
 
 end

@@ -3,5 +3,6 @@
 require_relative '../config/environment.rb'
 
 hello = UserInterface.new
-hello.user_experience
-binding.pry
+hello.run
+
+

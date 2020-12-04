@@ -2,12 +2,13 @@
 
 
 
-
-
-choice = 'bob'
-
-if !!choice.to_i
-    puts "hi"
+def hello
+    choice = gets.chomp
+    if choice == 'hi'
+        puts 'hi'
+    else
+        hello
+    end
 end
 
-puts choice.to_i
+hello

@@ -3,13 +3,13 @@ require_relative '../config/environment.rb'
 
 class UserInterface
 
-    attr_accessor :section, :filter, :range_min, :range_max, :morn_end, :aft_end, :t
+    attr_accessor :section, :filter, :range_min, :range_max, :morn_end, :aft_end, :t, :section_index
 
  
-    SECTIONS = ['u.s.', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 
-    'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 
-    'movies', 'NY Region', 'obituaries', 'Real Estate', 'science', 'sports', 
-    'Sunday Review', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
+    SECTIONS = ['US', 'World', 'Opinion', 'Politics', 'Arts', 'Automobiles', 'Books', 
+    'Business', 'Fashion', 'Food', 'Health', 'Home', 'Insider', 'Magazine', 
+    'Movies', 'NY Region', 'Obituaries', 'Real Estate', 'Science', 'Sports', 
+    'Sunday Review', 'Technology', 'Theater', 'T-magazine', 'Travel', 'Upshot']
         
     def initialize
         @range_min, @range_max = 0, 9
@@ -38,30 +38,29 @@ class UserInterface
     def display_section_choices
         i = 1
         puts "Popular Sections:\n\n"
-        SECTIONS[0..3].each { |sec| puts "#{i}. #{sec.capitalize}"; i += 1 }
+        SECTIONS[0..3].each { |sec| puts "#{i}. #{sec}"; i += 1 }
         puts "\n\nOther Sections:\n\n"
-        SECTIONS[4..SECTIONS.length - 1].each { |sec| puts "#{i}. #{sec.capitalize}"; i += 1 }
+        SECTIONS[4..SECTIONS.length - 1].each { |sec| puts "#{i}. #{sec}"; i += 1 }
         puts "\n\nWhich section would you like to view? (Input number of your choice)\n\n"; sleep(2)
         self.make_section_choice
     end
 
     def make_section_choice
         input = gets.to_i
+        self.section_index = input - 1
         self.section_corrected(input)
         self.create_filter_object
         self.display_headlines
     end
 
     def section_corrected(input)
-        self.section = SECTIONS[input - 1]
+        self.section = SECTIONS[input - 1].downcase
         case @section
-        when "u.s."
-            self.section = 'us'
-        when "NY Region"
+        when "ny region"
             self.section = 'nyregion'
-        when "Real Estate"
+        when "real estate"
             self.section = 'realestate'
-        when "Sunday Review"
+        when "sunday review"
             self.section = 'sundayreview'
         end
     end
@@ -79,33 +78,35 @@ class UserInterface
     end
 
     def display_headlines
-        puts "\n\nHere are today's headlines in #{self.section.capitalize}: \n\n"
+        self.section_corrected(@section_index)
+        puts "\n\nHere are today's headlines in #{SECTIONS[section_index]}: \n\n"
         self.puts_headlines
-        puts "\n\nEnter an article number, or type 'more' for more articles. Type b to go back.\n\n"
+        puts "\n\nEnter an article number (1 - #{self.range_max + 1}), or type 'more' for more articles. Press b to go back. Press e to exit. \n\n"
         self.hl_decision_tree
     end
 
-    def more(range_min, range_max)
+    def show_more_articles(range_min, range_max)
         if range_max + 10 < self.filter.num_headlines
             self.range_min += 10; self.range_max += 10
-            self.display_headlines
         elsif range_max + 10 >= self.filter.num_headlines
             self.range_min = self.filter.num_headlines - 10; self.range_max = self.filter.num_headlines
-            puts "\n\nThese are the last headlines."; sleep(1)
-            self.display_headlines
+            puts "\n\nThese are the last headlines."; sleep(1) 
         end
+        self.display_headlines
     end
 
 
     def hl_decision_tree
         choice = gets.chomp
         if choice.downcase == 'more'
-            self.more(self.range_min, self.range_max)
+            self.show_more_articles(self.range_min, self.range_max)
         elsif choice.to_i != 0
             self.choose_article(choice)
         elsif choice.downcase == 'b'
             @range_min, @range_max = 0, 9
             self.display_section_choices
+        elsif choice.downcase == 'e'
+            self.program_exit
         else
             self.invalid_choice('display_headlines')
         end

@@ -1,11 +1,19 @@
 # NYT Top Stories Reader
 
-This Ruby program retrieves the day's headlines from the New York Times, filtered by section. Users can read a summary of each article, and open its url in a browser.
+This Ruby CLI program allows users to interact with the current day's New York Times (NYT) headlines, through requests to the NYT API.
+
+The user can:
+    --Retrieve the headlines from any NYT section
+    --View a brief summary of and details the corresponding article
+    --Open the article in a browser
 
 ## Installation
 
+1) Clone the nyt_topstories repository onto your computer. The project folder is named nyt_topstories
 
-## Usage
+2) CD into the project folder and execute:
+
+`ruby bin/run.rb`
 
 ## Development
 

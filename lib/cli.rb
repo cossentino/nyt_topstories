@@ -3,12 +3,15 @@ require_relative '../config/environment.rb'
 
 class UserInterface
 
-    attr_accessor :section, :filter, :json, :article_index
+    attr_accessor :section, :filter, :json, :article_index, :range_min, :range_max
 
  
     SECTIONS = ['u.s.', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 'movies', 'NY Region', 'obituaries', 'Real Estate', 'science', 'sports', 'Sunday Review', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
-
         
+    def initialize
+        @range_min, @range_max = 0, 9
+    end
+    
     def greeting
         t = Time.now
         today_date = [t.year, t.month, t.day]
@@ -25,16 +28,15 @@ class UserInterface
     end
 
     def display_section_choices
-        puts "Which section would you like to view? (Input number of your choice)\n\n"; sleep(2)
         i, j = 1, 5
         puts "Popular Sections:\n\n"
         SECTIONS[0..3].each { |sec| puts "#{i}. #{sec.capitalize}"; i += 1 }
         puts "\n\nOther Sections:\n\n"
         SECTIONS[4..SECTIONS.length - 1].each { |sec| puts "#{j}. #{sec.capitalize}"; j += 1 }
+        puts "Which section would you like to view? (Input number of your choice)\n\n"; sleep(2)
     end
 
     def make_section_choice
-        self.display_section_choices
         input = gets.to_i
         self.section = SECTIONS[input - 1]
         self.section_corrector
@@ -53,28 +55,40 @@ class UserInterface
         end
     end
 
-    def first_ten_headlines
-        puts "\n\nHere are today's top 10 headlines in #{self.section.capitalize}: \n\n"
-        self.filter.headlines_array_enumerated_puts(0..9)
-        puts "\n\nEnter the article number you'd like to explore, or type 'more' for more headlines"
+    def json_data
+        GetRequester.new(self.section).parse_json
+    end
 
-    def see_more_headlines
-        range_min, range_max = 0, 9
-        while !self.article_index
-            choice = gets.chomp
-            if choice == 'more' && self.filter.num_headlines > range_max + 10
-                range_min += 10; range_max += 10
-                self.filter.headlines_array_enumerated_puts(range_min..range_max)
-                puts "\n\nEnter the article number you'd like to explore, or type 'more' for more headlines"
-            elsif choice == 'more' && self.filter.num_headlines <= range_max + 10
-                range_min += ((num_headlines - 1) - range_max)
-                range_max = num_headlines - 1
-                self.filter.headlines_array_enumerated_puts(range_min..range_max)
-            else
-                self.article_index = choice.to_i - 1
-            end
+
+    def puts_headlines
+        hl_enum = self.filter.enumerate(self.filter.create_headlines_array)
+        hl_enum[range_min..range_max].each { |hl| puts "#{hl[0]}. #{hl[1]}"}
+    end
+
+    def display_first_headlines
+        puts "\n\nHere are today's top 10 headlines in #{self.section.capitalize}: \n\n"
+        self.puts_headlines
+        puts "\n\nEnter the article number you'd like to explore, or type 'more' for more articles"
+    end
+
+    def headlines_decision_tree
+        choice = gets.chomp
+        if choice.to_i == 'more'
+
+        elsif choice.to_i != 0
+            self.filter.index = choice.to_i - 1
+        else
+            puts "I didn't understand your answer."
+            range_min == 0 ? self.display_first_headlines : self.display_additional_headlines
         end
     end
+
+    def display_additional_headlines
+        puts "\n\nHere are the next ten headlines in #{self.section.capitalize}: \n\n"
+        self.puts_headlines
+        puts "\n\nEnter the article number you'd like to explore, or type 'more' for more articles"
+    end
+
 
     def display_article_details
         article = self.filter.article
@@ -87,14 +101,14 @@ class UserInterface
     end
 
     def ask_to_link
-        puts "Would you like to link to this article? (y/n). Press e to exit"
+        puts "Press l to link to article. Press e to exit. Press b to go back."
         choice = gets.chomp.downcase
-        if choice == 'y'
+        if choice == 'l'
             Launchy.open(self.filter.article['url'])
         elsif choice == 'e'
             self.program_exit
-        else
-            self.display_article_details
+        elsif choice == 'b'
+            self.first_ten_headlines
         end
     end
 

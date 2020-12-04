@@ -1,9 +1,13 @@
-require_relative '../config/environment.rb'
+#require_relative '../config/environment.rb'
 
 
 
 
 
-x, y = 5,6
+choice = 'bob'
 
-puts x, y
+if !!choice.to_i
+    puts "hi"
+end
+
+puts choice.to_i

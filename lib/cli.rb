@@ -85,15 +85,22 @@ class UserInterface
         self.hl_decision_tree
     end
 
-    def hl_decision_tree
-        choice = gets.chomp
-        if choice.downcase == 'more' && @range_max + 10 < self.filter.num_headlines
-            @range_min += 10; @range_max += 10
+    def more(range_min, range_max)
+        if range_max + 10 < self.filter.num_headlines
+            self.range_min += 10; self.range_max += 10
             self.display_headlines
-        elsif choice.downcase == 'more' && @range_max + 10 >= self.filter.num_headlines
-            @range_min = self.filter.num_headlines - 10; @range_max = self.filter.num_headlines
+        elsif range_max + 10 >= self.filter.num_headlines
+            self.range_min = self.filter.num_headlines - 10; self.range_max = self.filter.num_headlines
             puts "\n\nThese are the last headlines."; sleep(1)
             self.display_headlines
+        end
+    end
+
+
+    def hl_decision_tree
+        choice = gets.chomp
+        if choice.downcase == 'more'
+            self.more(self.range_min, self.range_max)
         elsif choice.to_i != 0
             self.choose_article(choice)
         elsif choice.downcase == 'b'

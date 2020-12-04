@@ -4,14 +4,14 @@ require_relative '../config/environment.rb'
 
 class GetRequester
     
-    attr_reader :url
+    attr_accessor :url
 
     def initialize
-        @url = URL
+        @url = ''
     end
 
     def url_generator(section)
-        url = 'https://api.nytimes.com/svc/topstories/v2/#{section}.json?api-key=sH1eLe6haGnCuuLewjFLQsgAZFXDetDo'
+        self.url = "https://api.nytimes.com/svc/topstories/v2/#{section}.json?api-key=sH1eLe6haGnCuuLewjFLQsgAZFXDetDo"
     end
 
     def get_response_body

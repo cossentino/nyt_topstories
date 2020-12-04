@@ -30,8 +30,5 @@ class GetRequester
 end
 
 
-test = GetRequester.new('arts')
 
-
-binding.pry
 

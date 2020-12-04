@@ -3,7 +3,7 @@ require_relative '../config/environment.rb'
 
 class UserInterface
 
-    attr_accessor :section
+    attr_accessor :section, :my_filter, :my_json
 
  
     SECTIONS = ['U.S.', 'world', 'opinion', 'politics', 'arts', 'automobiles', 'books', 'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 'movies', 'NY Region', 'obituaries', 'Real Estate', 'science', 'sports', 'Sunday Review', 'technology', 'theater', 't-magazine', 'travel', 'upshot']
@@ -65,10 +65,16 @@ class UserInterface
     def user_experience
         self.greeting
         self.make_section_choice
+        self.my_json = GetRequester(self.section)
+        self.my_filter = Filter.new(self.my_json)
+        self.headlines
+
     end
 
     def headlines
         puts "Here are today's headlines in #{self.section.capitalize}"
+        self.my_filter.return_section_headlines
+
     end
 
 

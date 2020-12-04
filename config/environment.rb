@@ -11,7 +11,9 @@ require 'table_print'
 require 'time'
 require 'launchy'
 
+
+require_relative '../lib/filter.rb'
 require_relative '../lib/get_requester.rb'
 require_relative '../lib/user_interface.rb'
-require_relative '../lib/filter.rb'
+
 

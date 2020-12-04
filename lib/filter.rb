@@ -37,7 +37,7 @@ class Filter
     end
 
     def article
-        self.data.results[self.my_interface.article_selection_index]
+        self.data['results'][self.my_interface.article_selection_index]
     end
 
     def author

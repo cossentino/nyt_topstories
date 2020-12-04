@@ -62,17 +62,6 @@ class UserInterface
         end
     end
 
-    def user_experience
-        self.greeting
-        self.make_section_choice
-        self.my_json = GetRequester.new(self.section).parse_json
-        self.my_filter = Filter.new(self.my_json)
-        self.my_filter.my_interface = self
-        self.headlines
-
-    end
-
-
     def headlines
         range_min = 0
         range_max = 9
@@ -99,23 +88,36 @@ class UserInterface
 
     def display_article_details
         article = my_filter.article
-        puts "Alright. Here are some details on that article:\n\n"
+        puts "\n\nAlright. Here are some details on that article:\n\n"
         puts "Title: #{article['title']}"
         puts "Author: #{self.my_filter.author}"
         puts "Link: #{article['url']}"
-        puts "Date published: #{article['published_date']}"
-        puts "Date updated: #{article['updated_date']}"
+        puts "Date published: #{article['published_date'][0..9]}"
+        puts "Date updated: #{article['updated_date'][0..9]}"
     end
 
     def ask_to_link
         puts "Would you like to link to this article? (y/n)"
         choice = gets.chomp.downcase
         if choice == 'y'
-            Launchy.open(article['url'])
+            Launchy.open(my_filter.article['url'])
         else
             self.display_article_details
         end
     end
+
+    def user_experience
+        self.greeting
+        self.make_section_choice
+        self.my_json = GetRequester.new(self.section).parse_json
+        self.my_filter = Filter.new(self.my_json)
+        self.my_filter.my_interface = self
+        self.headlines
+        self.display_article_details
+        self.ask_to_link
+
+    end
+
     
 
 

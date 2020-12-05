@@ -25,10 +25,6 @@ class Filter
         self.data['results'][self.index]
     end
 
-    def author
-        self.article['byline'].gsub("By ", "")
-    end
-
     def clear_information
         self.index, self.article = nil, nil
     end

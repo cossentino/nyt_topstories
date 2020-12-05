@@ -119,7 +119,7 @@ class UserInterface
         article = self.filter.article
         puts "\n\nAlright. Here are some details on that article:\n\n"
         puts "Title: #{article['title']}"
-        puts "Author: #{self.filter.author}"
+        puts "Author: #{article['byline'].gsub("By ", "")}"
         puts "Summary: #{article['abstract']}"
         puts "Date published: #{article['published_date'][0..9]}"
         puts "Link: #{article['url']}"

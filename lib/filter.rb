@@ -10,9 +10,7 @@ class Filter
     end
 
     def create_headlines_array
-        headlines_array = []
-        self.data['results'].each { |article| headlines_array.push(article['title'])}
-        headlines_array
+        self.data['results'].map { |article| article['title']}
     end
 
     def enumerate(array)

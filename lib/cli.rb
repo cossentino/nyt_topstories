@@ -93,7 +93,7 @@ class UserInterface
         choice = gets.chomp
         if choice.downcase == 'more'
             self.show_more_articles(self.range_min, self.range_max)
-        elsif choice.to_i != 0 && choice.to_i < self.filter.num_headlines
+        elsif choice.to_i != 0 && choice.to_i <= self.filter.num_headlines
             self.choose_article(choice)
         elsif choice.downcase == 'b'
             @range_min, @range_max = 0, 9

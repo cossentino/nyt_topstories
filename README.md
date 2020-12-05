@@ -9,7 +9,7 @@ The user can:
     
 ## For Flatiron school project submission:
     
-   Non-technical demo video: https://youtu.be/teo1uag0jnQ
+   Non-technical demo video: https://youtu.be/teo1uag0jnQ \n
    Blog post: https://icossentino.medium.com/the-simple-stuff-lessons-in-building-my-first-cli-app-in-ruby-90413e156ed0
     
 ## Installation and Usage

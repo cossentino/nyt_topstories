@@ -4,7 +4,7 @@ This Ruby CLI program allows users to interact with the current day's New York T
 
 The user can:
     --Retrieve the headlines from any NYT section
-    --View a brief summary of and details the corresponding article
+    --View details and a brief summary of each article
     --Open articles in a browser
 
 ## Installation

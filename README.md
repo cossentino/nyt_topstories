@@ -4,15 +4,24 @@ This Ruby CLI program allows users to interact with the current day's New York T
 
 The user can:
     --Retrieve the headlines from any NYT section
-    --View a brief summary of and details the corresponding article
+    --View details and a brief summary of each article
     --Open articles in a browser
-
-## Installation
+    
+## For Flatiron School project submission:
+    
+   Non-technical demo video: https://youtu.be/teo1uag0jnQ
+   
+   Blog post: https://icossentino.medium.com/the-simple-stuff-lessons-in-building-my-first-cli-app-in-ruby-90413e156ed0
+    
+## Installation and Usage
 
 1) Clone the nyt_topstories repository onto your computer. The project folder is named nyt_topstories
-2) CD into the project folder and execute:
+2) To run the program, CD into the project folder and execute:
 
-`ruby bin/run.rb`
+`ruby bin/run`
+
+Troubleshooting:
+1) If gems do not load automatically, run "bundle install" in the project folder to install all programs listed in Gemfile
 
 Will be registered as a gem at a later time; currently functioning as a local application.
 

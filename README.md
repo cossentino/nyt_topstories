@@ -7,10 +7,10 @@ The user can:
     --View details and a brief summary of each article
     --Open articles in a browser
 
-## Installation
+## Installation and Usage
 
 1) Clone the nyt_topstories repository onto your computer. The project folder is named nyt_topstories
-2) CD into the project folder and execute:
+2) To run the program, CD into the project folder and execute:
 
 `ruby bin/run`
 

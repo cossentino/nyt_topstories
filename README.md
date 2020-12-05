@@ -7,7 +7,7 @@ The user can:
     --View details and a brief summary of each article
     --Open articles in a browser
     
-## For Flatiron school project submission:
+## For Flatiron School project submission:
     
    Non-technical demo video: https://youtu.be/teo1uag0jnQ
    

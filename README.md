@@ -12,7 +12,10 @@ The user can:
 1) Clone the nyt_topstories repository onto your computer. The project folder is named nyt_topstories
 2) CD into the project folder and execute:
 
-`ruby bin/run.rb`
+`ruby bin/run`
+
+Troubleshooting:
+1) If gems do not load automatically, run "bundle install" in the project folder to install all programs listed in Gemfile
 
 Will be registered as a gem at a later time; currently functioning as a local application.
 

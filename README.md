@@ -6,7 +6,12 @@ The user can:
     --Retrieve the headlines from any NYT section
     --View details and a brief summary of each article
     --Open articles in a browser
-
+    
+## For Flatiron school project submission:
+    
+    Non-technical demo video: https://youtu.be/teo1uag0jnQ
+    Blog post: https://icossentino.medium.com/the-simple-stuff-lessons-in-building-my-first-cli-app-in-ruby-90413e156ed0
+    
 ## Installation and Usage
 
 1) Clone the nyt_topstories repository onto your computer. The project folder is named nyt_topstories

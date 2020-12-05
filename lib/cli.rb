@@ -4,7 +4,6 @@ require_relative '../config/environment.rb'
 class UserInterface
 
     attr_accessor :section, :filter, :range_min, :range_max, :morn_end, :aft_end, :t, :section_index
-
  
     SECTIONS = ['US', 'World', 'Opinion', 'Politics', 'Arts', 'Automobiles', 'Books', 
     'Business', 'Fashion', 'Food', 'Health', 'Home', 'Insider', 'Magazine', 
@@ -54,15 +53,7 @@ class UserInterface
     end
 
     def section_corrected(input)
-        self.section = SECTIONS[input - 1].downcase
-        case @section
-        when "ny region"
-            self.section = 'nyregion'
-        when "real estate"
-            self.section = 'realestate'
-        when "sunday review"
-            self.section = 'sundayreview'
-        end
+        self.section = SECTIONS[input - 1].downcase.gsub(" ", "")
     end
 
     def create_filter_object
@@ -70,7 +61,6 @@ class UserInterface
         self.filter = Filter.new(json)
         self.filter.interface = self
     end
-
 
     def puts_headlines
         hl_enum = self.filter.enumerate(self.filter.create_headlines_array)
@@ -94,7 +84,6 @@ class UserInterface
         end
         self.display_headlines
     end
-
 
     def hl_decision_tree
         choice = gets.chomp

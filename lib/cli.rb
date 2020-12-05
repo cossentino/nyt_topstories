@@ -46,10 +46,14 @@ class UserInterface
 
     def make_section_choice
         input = gets.to_i
-        self.section_index = input - 1
-        self.section_corrected(input)
-        self.create_filter_object
-        self.display_headlines
+        if input > 0 && input < 27
+            self.section_index = input - 1
+            self.section_corrected(input)
+            self.create_filter_object
+            self.display_headlines
+        else
+            self.invalid_choice('make_section_choice')
+        end
     end
 
     def section_corrected(input)
@@ -89,7 +93,7 @@ class UserInterface
         choice = gets.chomp
         if choice.downcase == 'more'
             self.show_more_articles(self.range_min, self.range_max)
-        elsif choice.to_i != 0
+        elsif choice.to_i != 0 && choice.to_i < self.filter.num_headlines
             self.choose_article(choice)
         elsif choice.downcase == 'b'
             @range_min, @range_max = 0, 9
